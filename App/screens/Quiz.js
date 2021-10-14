@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, StatusBar, Text, SafeAreaView, Image } from "react-native";
 
 import { Button, ButtonContainer } from "../components/Button";
 import { Alert } from "../components/Alert";
@@ -21,9 +21,20 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 100,
     justifyContent: "space-between"
-  }
-});
+  },
+  image: {
+    width: '30%',
+    height: '30%',
+    aspectRatio: 1,
+    alignSelf: 'center',
 
+  },
+});
+// On renvoie un nombre aléatoire entre une valeur min (incluse)
+// et une valeur max (exclue)
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 class Quiz extends React.Component {
   state = {
     correctCount: 0,
@@ -72,6 +83,17 @@ class Quiz extends React.Component {
     const questions = this.props.navigation.getParam("questions", []);
     const question = questions[this.state.activeQuestionIndex];
 
+    const getImage = name => {
+      switch (name) {
+        case "fr.png":
+          return require("../assets/fr.png")
+        case "ow.png":
+          return require("../assets/ow.png")
+        default:
+          return ""
+      }
+    }
+
     return (
       <View
         style={[
@@ -94,6 +116,11 @@ class Quiz extends React.Component {
               ))}
             </ButtonContainer>
           </View>
+          <Image
+            style={styles.image}
+            source={getImage(question.image)}
+          />
+
 
           <Text style={styles.text}>
             {`${this.state.correctCount}/${this.state.totalCount}`}
