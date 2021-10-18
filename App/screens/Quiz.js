@@ -3,6 +3,7 @@ import { View, StyleSheet, StatusBar, Text, SafeAreaView, Image } from "react-na
 
 import { Button, ButtonContainer } from "../components/Button";
 import { Alert } from "../components/Alert";
+import { Game } from "../functions/Game";
 
 const styles = StyleSheet.create({
   container: {
@@ -30,11 +31,7 @@ const styles = StyleSheet.create({
 
   },
 });
-// On renvoie un nombre aléatoire entre une valeur min (incluse)
-// et une valeur max (exclue)
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
+
 class Quiz extends React.Component {
   state = {
     correctCount: 0,
@@ -82,6 +79,30 @@ class Quiz extends React.Component {
   render() {
     const questions = this.props.navigation.getParam("questions", []);
     const question = questions[this.state.activeQuestionIndex];
+    const totalQuestions = this.props.navigation.getParam("questions", []).length;
+    var Questionsarray = new Array();
+    //store questions
+    const game = new Game();
+    let i = 0;
+    var rdnNumber = game.getRandomArbitrary(0, totalQuestions);
+
+    while (i < totalQuestions) {
+
+
+      if (!Questionsarray.includes(rdnNumber)) {
+        Questionsarray.push(rdnNumber);
+        i++;
+      }
+      else {
+
+      }
+
+    }
+
+
+
+
+
 
     const getImage = name => {
       switch (name) {
@@ -93,6 +114,9 @@ class Quiz extends React.Component {
           return ""
       }
     }
+
+
+
 
     return (
       <View
